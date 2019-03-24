@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+    /*Задание1
+    разработайте страницу заказа пиццы
+    требования к старнице:
+    можно заказать три вида пиццы - маленькая, большая, средняя
+    можно самостоятельно выбрать ингридиенты к пицце - грибы, 
+    бекон, помидоры, сыр, оливки.
+    На странице должна вводиться информация о 
+    покупателе (его тлф адрес доставки)
+    
+    Подумайте, какие данные следует проверять на странице реализуй
+    те эту проверку. Также реализуйте подсчет стоимости пиццы
+    при выборе размеров и ингридиентов автоматически должна
+    пересчитваться сумма заказа. Цены на размер пиццы 
+    и отдельные ингридиенты выберите произвольно.
+    */
+    </script>
+    <style>
+        #phone{
+            display: none;
+        }
+        #adres{
+            display: none;
+        }
+        #order{
+            display: none;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var output = document.getElementById("output");
+            var group = document.getElementsByName("group");
+            var topping = document.getElementById("topping")
+            price = 50;
+            output.innerHTML = price;
+            for(var i = 0; i < group.length; i++){
+                group[i].onchange = function(){
+                    select(this);
+                }
+            }
+            function select(a){
+                var flag = a.value;
+                switch(flag){
+                    case "sm":price = 50; output.innerHTML = price; break;
+                    case "md":price = 100; output.innerHTML = 100; break;
+                    case "bg":price = 150; output.innerHTML = 150; break;
+                }
+            }
+
+            var group1 = document.getElementsByName("group1");
+            for(var i = 0; i < group1.length; i++){
+                group1[i].addEventListener("click", function(){
+                    select1(this);
+                })
+            }
+            function select1(e){
+                var flag1 = e.value;
+                switch(flag1){
+                    case "Mushrooms+": price = price + 10; 
+                        output.innerHTML = price ;
+                        topping.innerHTML += " add mush"
+                        e.style.display = "none";
+                        break;
+                    case "Bacon+": price = price + 15;
+                        output.innerHTML = price ;
+                        topping.innerHTML += " add bac"
+                        e.style.display = "none";
+                        break;
+                    case "Tomato+": price = price + 20;
+                        output.innerHTML = price;
+                        topping.innerHTML += " add tomat"
+                        e.style.display = "none";
+                        break;
+                    case "Cheese+": price = price + 30;
+                        output.innerHTML = price;
+                        topping.innerHTML += " add chees"
+                        e.style.display = "none";
+                        break;
+                    case "Oiliev+": price = price + 40;
+                        output.innerHTML = price;
+                        topping.innerHTML += " add oliv"
+                        e.style.display = "none";
+                        break;
+                }
+            }
+            var go = document.getElementById("go");
+            go.addEventListener("click",function(){
+                document.getElementById("phone").style.display = "block";
+                document.getElementById("adres").style.display = "block";
+                document.getElementById("order").style.display = "block";
+            })
+        }
+    </script>
+</head>
+<body>
+    <h1>Order Pizza</h1>
+    <form>
+        <div>
+            <h2>Choose size</h2>
+            <label for="smal">Small size</label>
+            <input type="radio" name="group" id="sm" value="sm">
+
+            <label for="mid">Mid size</label>
+            <input type="radio" name="group" id="md" value="md">
+
+            <label for="big">Big size</label>
+            <input type="radio" name="group" id="bg" value="bg">
+        </div>
+        <h2>Maybe some toppings?</h2>
+        <input type="button" value="Mushrooms+" id="mush" name="group1">
+        <input type="button" value="Bacon+" id="bac" name="group1">
+        <input type="button" value="Tomato+" id="tom" name="group1">
+        <input type="button" value="Cheese+" id="che" name="group1">
+        <input type="button" value="Oiliev+" id="oli" name="group1">
+        <p id="output"></p>
+        <p id="topping"></p>
+        <div>
+        <input type="button" value="Gooo!" id="go">
+        <input type="text" placeholder="Your number" id="phone" required>
+        <input type="text" placeholder="Your adress" id="adres" required>
+        <input type="submit" value="Ordered" id="order">
+        </div>
+    </form>
+</body>
+</html>
